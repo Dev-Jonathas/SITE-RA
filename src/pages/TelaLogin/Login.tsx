@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "../TelaLoginIES/Login.css";
+import "../TelaLogin/Login.css";
+import { Link } from "react-router-dom";
 
 
 const Login = () => {
@@ -15,7 +16,8 @@ const Login = () => {
         <div className="cadastro-container">
           <h1 className="h1Cadastro"> Login </h1>
           <p>Novo nesse site?</p> 
-          <a className="reg" href="/Cadastro">Registra-se</a>
+          <Link className="reg" to="/Cadastro">Registra-se</Link>
+          
           <form onSubmit={handleLogin} style={{ marginTop: "20px" }}>
             <label>
               Email:
@@ -36,11 +38,9 @@ const Login = () => {
                 onChange={(e) => setSenha(e.target.value)}
               />
             </label>
-            <a className="E-senha" href="//">Esqueci minha senha?</a>
+            <Link className="E-senha" to="//">Esqueceu a senha?</Link>
             <br />
 
-            <a className="telas" href="/loginIES">Login IES</a>
-            <a className="telas" href="//">Login Mentor</a>
 
             <button type="submit" className="BLogin">Fazer Login</button>
 
