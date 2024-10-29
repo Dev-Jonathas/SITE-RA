@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './components/Home/HomePage';
 import MentorPage from './components/AgendarMentor/AgendarMentor';
 import AnamnesePage from './components/Anamnese/AnamnesePage';
@@ -7,23 +7,27 @@ import AgendamentoPage from './components/Agendamento/AgendamentoPage';
 import LoginPage from './components/TelaLogin/Login';
 import IESPage from './components/TelaIES/TelaIES';
 import CadastroPage from './components/TelaCadastro/Cadastro';
-import UsuarioPage from './components/TelaUsuario/Usuario';
-
+import UserPage from './components/TelaUsuario/Usuario';
+import PerfilUser from './pages/Tela-PerfilUser/PerfilUser';
 
 const App = () => {
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/mentor" element={<MentorPage />} />
         <Route path="/anamnese" element={<AnamnesePage />} />
-        <Route path="/agendamento" element={<AgendamentoPage/>} />
-        <Route path="/cadastro" element={<CadastroPage/>} />
-        <Route path="login" element={<LoginPage/>} />
-        <Route path="/usuario" element={<UsuarioPage/>} />
-        <Route path="/IES" element={<IESPage/>} />
+        <Route path="/agendamento" element={<AgendamentoPage />} />
+        <Route path="/cadastro" element={<CadastroPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/IES" element={<IESPage />} />
+        <Route path="/user" element={<UserPage />} />
+        <Route path="/perfil" element={<PerfilUser />} />
+        <Route path="/user" element={<UserPage />} />
       </Routes>
     </Router>
   );
 }
+
 export default App;

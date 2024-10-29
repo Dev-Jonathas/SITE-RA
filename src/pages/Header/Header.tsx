@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/imgs/logo_ra1.png';
 import './Header.css';
 
-
-
 const Header: React.FC = () => {
 
   const scrollToTop = () => {

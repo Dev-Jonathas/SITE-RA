@@ -1,0 +1,69 @@
+.p-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa a altura total da janela */
+    background-color: #fffff1;
+    background: url('../../assets/imgs/Blue\ Minimalist\ Linktree\ Background.png') no-repeat center center fixed;
+  }
+  
+  .card {
+    background-color: rgb(255, 255, 255); /* Cor de fundo do card */
+    padding: 20px;
+    border-radius: 10px; /* Cantos arredondados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidade */
+    width: 500px; /* Largura fixa */
+    text-align: center; /* Centraliza o conteúdo no card */
+    height: 500px;
+  }
+  
+  .h1Perfil {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .perfil-info {
+    text-align: left; /* Alinha os itens à esquerda */
+  }
+  
+  .form-group {
+    margin-bottom: 15px; /* Espaçamento entre os campos */
+  }
+  
+  label {
+    display: block;
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 5px;
+  }
+  
+  .input-perfil {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Garante que o padding não expanda além da largura definida */
+    background-color: #f9f9f9;
+  }
+  
+  .input-perfil[readonly] {
+    background-color: #e9e9e9; /* Faz o campo parecer desativado */
+  }
+
+  .btn-Voltar {
+    background-color: #eeeeee;
+    color: #000000;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 100px;
+    margin-left: 380px;
+  }
+  
+  .btn-Voltar:hover {
+    background-color: #dddddd;
+  }
