@@ -8,14 +8,14 @@ const Login = () => {
   const navigate = useNavigate();
 
  // Função de login para conectar ao backend
- const login = async (email: string, senha: string) => {
+ const login = async (email, senha) => {
   try {
     const response = await fetch("https://locallhost:8080/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password: senha }),
+      body: JSON.stringify({ email, senha }),
     });
 
     if (!response.ok) {
@@ -37,8 +37,8 @@ const Login = () => {
 };
 
 // Função para tratar o envio do formulário de login
-const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
+const handleLogin = async (e) => {
+  e.preventDefault();
 
   if (!email || !senha) {
     alert("Por favor, preencha todos os campos.");

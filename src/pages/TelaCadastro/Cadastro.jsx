@@ -12,7 +12,7 @@ const Register = () => {
   const [cnpj, setCnpj] = useState("");
   const [nomeIes, setNomeIes] = useState("");
 
-  const validarCNPJ = (cnpj: string) => {
+  const validarCNPJ = (cnpj) => {
     cnpj = cnpj.replace(/[^\d]+/g, ""); // Remove caracteres especiais
 
     if (cnpj === "") return false;
@@ -47,9 +47,41 @@ const Register = () => {
     return resultado === parseInt(digitos.charAt(1));
   };
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Lógica para enviar o cadastro com base no tipo de usuário
+  
+    if (senha !== confirmarSenha) {
+      alert("As senhas não coincidem!");
+      return;
+    }
+  
+    const userData = {
+      tipoUsuario,
+      nome,
+      dataNascimento,
+      email,
+      senha,
+      cnpj,
+      nomeIes,
+    };
+  
+    try {
+      const response = await fetch('https://localhost:8080/cadastro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      if (response.ok) {
+        alert("Cadastro realizado com sucesso!");
+        // Redirecionar ou realizar outras ações após o cadastro
+      } else {
+        throw new Error("Erro ao cadastrar!");
+      }
+    } catch (error) {
+    }
   };
 
   return (

@@ -9,6 +9,7 @@ import IESPage from './components/TelaIES/TelaIES';
 import CadastroPage from './components/TelaCadastro/Cadastro';
 import UserPage from './components/TelaUsuario/Usuario';
 import PerfilUser from './pages/Tela-PerfilUser/PerfilUser';
+import NotificacaoUser from './pages/Tela-NotificacaoUser/NotificacaoUser';
 
 const App = () => {
 
@@ -16,15 +17,21 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/mentor" element={<MentorPage />} />
         <Route path="/anamnese" element={<AnamnesePage />} />
         <Route path="/agendamento" element={<AgendamentoPage />} />
+
         <Route path="/cadastro" element={<CadastroPage />} />
         <Route path="/login" element={<LoginPage />} />
+
         <Route path="/IES" element={<IESPage />} />
+
+
         <Route path="/user" element={<UserPage />} />
         <Route path="/perfil" element={<PerfilUser />} />
-        <Route path="/user" element={<UserPage />} />
+        <Route path="/notificacao" element={<NotificacaoUser />} />
+
       </Routes>
     </Router>
   );
