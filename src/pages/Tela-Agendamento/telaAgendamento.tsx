@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import mentor1 from '../../assets/imgs/mentor1.png';
 import mentor2 from '../../assets/imgs/mentor2.jpg';
-import mentor3 from '../../assets/imgs/mentor3.jpg';
 import './telaAgendamento.css';
 
 const AgendaMentor: React.FC = () => {
@@ -80,14 +79,6 @@ const AgendaMentor: React.FC = () => {
           <div className="mentor-info">
             <h3>Arnaldo Willian</h3>
             <p>Como mentor, compartilho minhas experiências pessoais e conhecimentos especializados sobre o cyberbullying.</p>
-          </div>
-        </div>
-
-        <div className="mentor-card" onClick={() => handleMentorSelection("Jonathas Xavier")}>
-          <img src={mentor3} alt="Mentor 3" />
-          <div className="mentor-info">
-            <h3>Jonathas Xavier</h3>
-            <p>Como mentor, ofereço orientação especializada na prevenção do cyberbullying.</p>
           </div>
         </div>
       </div>

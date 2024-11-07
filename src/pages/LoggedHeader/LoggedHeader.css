@@ -11,21 +11,22 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.nav {
+.logo {
   display: flex;
   align-items: center; /* Centraliza a logo verticalmente */
-  margin-left: 20px; /* Ajuste de margem para posicionar a logo */
+  margin-left: 10px; /* Ajuste de margem para posicionar a logo */
 }
 
-.nav img {
-  width: 100px; /* Largura da logo */
-  margin-right: 1400px;
+.logo img {
+  width: 100px;
+margin-right: 1400px;
+  /* ajuste o tamanho conforme necessário */
 }
 
 .dropdown-menu {
   position: absolute;
-  left: 100; /* Alinha o menu ao lado esquerdo */
-  top: 50px; /* Ajuste a posição vertical se necessário */
+  right: 20px; /* Alinha o menu ao lado esquerdo */
+  top: 60px; /* Ajuste a posição vertical se necessário */
   background-color: white;
   border: 1px solid #cccccc;
   border-radius: 5px;

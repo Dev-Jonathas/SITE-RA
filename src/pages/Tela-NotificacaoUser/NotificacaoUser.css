@@ -1,7 +1,5 @@
-
-
 /* Container principal para centralizar o conteúdo */
-.container {
+.n-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,7 +15,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidade */
     width: 500px; /* Largura fixa */
     text-align: center; /* Centraliza o conteúdo no card */
-    height: 500px;
+    height: auto; /* Ajusta a altura automaticamente */
 }
 
 .title {
@@ -26,47 +24,27 @@
     margin-bottom: 20px;
 }
 
-.notification-info {
-    text-align: left; /* Alinha os itens à esquerda */
+.notification {
+    text-align: left; /* Alinha o texto à esquerda */
+    margin-bottom: 20px; /* Espaçamento inferior */
 }
 
-.notification-group {
-    margin-bottom: 15px; /* Espaçamento entre os campos */
+.notification p {
+    font-size: 16px; /* Tamanho da fonte para as notificações */
+    color: #555; /* Cor do texto das notificações */
 }
 
-label {
-    display: block;
-    font-size: 14px;
-    color: #000000;
-    margin-bottom: 5px;
-}
-
-.readonly-input {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; /* Garante que o padding não expanda além da largura definida */
-    background-color: #f9f9f9;
-}
-
-.readonly-input[readonly] {
-    background-color: #e9e9e9; /* Faz o campo parecer desativado */
-}
-
-.btn-back {
-    background-color: #eeeeee;
-    color: #000000;
+.btn-Voltar {
+    background-color: #007bff; /* Cor de fundo do botão */
+    color: #ffffff; /* Cor do texto do botão */
     padding: 10px 20px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: none; /* Remove a borda padrão */
+    border-radius: 5px; /* Bordas arredondadas */
     cursor: pointer;
-    margin-top: 100px;
-    margin-left: 380px;
+    transition: background-color 0.3s ease; /* Transição suave para hover */
 }
 
-.btn-back:hover {
-    background-color: #dddddd;
+.btn-Voltar:hover {
+    background-color: #0056b3; /* Cor do botão ao passar o mouse */
 }

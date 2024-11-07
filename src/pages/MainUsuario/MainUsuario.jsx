@@ -60,7 +60,7 @@ const MainUsuario = () => {
 
       <div className="botoes">
 
-        <Link to="/mentor" className="botaoMain" onClick={scrollToTop} >
+        <Link to="/mentores" className="botaoMain" onClick={scrollToTop} >
           Conheça nossos Mentores
         </Link>
 

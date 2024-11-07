@@ -15,6 +15,7 @@ const InstituicaoPage: React.FC = () => {
   const [mentorias, setMentorias] = useState<Mentoria[]>([]);
   const [instituicaoNome] = useState('UNINASSAU Graças');
   const [mensagem] = useState('Bem-vindo à nossa plataforma de mentorias!');
+  
 
   useEffect(() => {
     const fetchMentorias = async () => {
@@ -54,12 +55,13 @@ const InstituicaoPage: React.FC = () => {
   
   return (
     <div className="instituicao-container">
+      <button className="off" onClick={handleLogoff}>Logoff</button>
       <header className="instituicao-header">
         <img src={instituicaoImagem} alt="Logo da Instituição" className="instituicao-imagem" />
         <h1>{instituicaoNome}</h1>
         <p className="instituicao-mensagem">{mensagem}</p>
         {/* Adicione um botão ou link para fazer logoff */}
-        <button className="off" onClick={handleLogoff}>Logoff</button>
+      
       </header>
       <h2>Agenda de Mentorías da Instituição</h2>
       <div className="mentoria-list">

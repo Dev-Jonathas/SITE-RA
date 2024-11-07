@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './NotificacaoUser.css';
+
 
 const NotificacaoUser = () => {
     // Estado para simular notificações e informações de agendamento
@@ -31,11 +33,12 @@ const NotificacaoUser = () => {
     }, [mentor]); // Dependência do mentor
 
     return (
-        <div className="container">
+        <div className="n-container">
             <div className="card">
                 <h1 className="h1Perfil">Notificações</h1>
                 <div className="notificacao">
                     <p>{notificacao}</p>
+                    <br/>
                     {agendamento.dia && agendamento.hora && (
                         <p>
                             Data do Agendamento: {agendamento.dia} <br />
