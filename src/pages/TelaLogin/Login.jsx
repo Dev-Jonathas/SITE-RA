@@ -17,7 +17,10 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, senha }),
+        body: JSON.stringify({ 
+          email: email, 
+          senha: senha,
+        }),
       });
 
       if (!response.ok) {
@@ -28,16 +31,12 @@ const Login = () => {
 
       // Assuming the response contains user info or a token
       const data = await response.json();
+      localStorage.setItem('token', data.token);
 
-      if (data.success) {
-        // Redirect to the user dashboard or another page after successful login
-        navigate("/user");
-      } else {
-        alert("Erro no servidor");
-      }
-    } catch (error) {
-      console.error("Erro na autenticação:", error);
-      alert("Erro no servidor");
+        // Redireciona para o Dashboard após o login
+        navigate('/home'); // Substitua pela rota correta após o login
+      } catch (error) {
+          console.error('Erro ao tentar fazer login!', error);
     }
   };
 
@@ -50,7 +49,7 @@ const Login = () => {
           Registra-se
         </Link>
 
-        <form onSubmit={handleLogin} style={{ marginTop: "20px" }}>
+        <form style={{ marginTop: "20px" }}>
           <label>
             Email:
             <input
@@ -75,7 +74,7 @@ const Login = () => {
           </Link>
           <br />
 
-          <button type="submit" className="BLogin">
+          <button onClick={handleLogin} className="BLogin">
             Fazer Login
           </button>
         </form>
