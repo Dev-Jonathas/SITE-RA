@@ -5,12 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");  // Para exibir erros
-  const navigate = useNavigate(); // Para redirecionar após login
+  const navigate = useNavigate(); // For redirecting after login
 
   // Função de login para conectar ao backend
-  const handleLogin = async (event) => {
-    event.preventDefault(); // Impede o recarregamento da página
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
 
     try {
       const response = await fetch("http://localhost:8080/auth/login", {
@@ -22,19 +21,23 @@ const Login = () => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        setError(errorData.message || "Credenciais inválidas");
+        // Handle unsuccessful login
+        alert("Credenciais inválidas");
         return;
       }
 
+      // Assuming the response contains user info or a token
       const data = await response.json();
-      // Aqui você pode salvar o token, se necessário, em localStorage ou context
-      console.log("Usuário logado com sucesso:", data);
-      // Redireciona para outra página após o login, por exemplo, Dashboard
-      navigate("/user");
+
+      if (data.success) {
+        // Redirect to the user dashboard or another page after successful login
+        navigate("/user");
+      } else {
+        alert("Erro no servidor");
+      }
     } catch (error) {
       console.error("Erro na autenticação:", error);
-      setError("Erro no servidor. Tente novamente.");
+      alert("Erro no servidor");
     }
   };
 
@@ -67,12 +70,10 @@ const Login = () => {
               onChange={(e) => setSenha(e.target.value)}
             />
           </label>
-          <Link className="E-senha" to="#">
+          <Link className="E-senha" to="/recuperar-senha">
             Esqueceu a senha?
           </Link>
           <br />
-
-          {error && <p className="error-message">{error}</p>} {/* Exibe mensagem de erro */}
 
           <button type="submit" className="BLogin">
             Fazer Login
