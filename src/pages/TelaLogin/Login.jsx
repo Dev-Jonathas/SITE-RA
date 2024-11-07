@@ -31,7 +31,7 @@ const Login = () => {
       // Aqui você pode salvar o token, se necessário, em localStorage ou context
       console.log("Usuário logado com sucesso:", data);
       // Redireciona para outra página após o login, por exemplo, Dashboard
-      navigate("/dashboard");
+      navigate("/user");
     } catch (error) {
       console.error("Erro na autenticação:", error);
       setError("Erro no servidor. Tente novamente.");
