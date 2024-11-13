@@ -8,7 +8,7 @@ const Login = () => {
   const navigate = useNavigate(); // For redirecting after login
 
   // Função de login para conectar ao backend
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault(); // Prevent default form submission behavior
 
     try {
