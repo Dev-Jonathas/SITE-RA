@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate(); // For redirecting after login
 
   // Função de login para conectar ao backend
@@ -17,28 +18,23 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
-          email: email, 
-          senha: senha,
-        }),
-      });
-
-      if (!response.ok) {
-        // Handle unsuccessful login
-        alert("Credenciais inválidas");
-        return;
+        body: JSON.stringify({ email, senha }),
       }
+    );
 
-      // Assuming the response contains user info or a token
+    if (response.ok) {
       const data = await response.json();
-      localStorage.setItem('token', data.token);
-
-        // Redireciona para o Dashboard após o login
-        navigate('/home'); // Substitua pela rota correta após o login
-      } catch (error) {
-          console.error('Erro ao tentar fazer login!', error);
+      console.log("Login bem-sucedido:", data);
+      navigate("/user");
+    } else {
+      const text = await response.text();
+      setError(text || "Usuário ou senha incorretos");
     }
-  };
+  } catch (error) {
+    console.error("Erro durante o login:", error);
+    setError("Ocorreu um erro, por favor, tente novamente.");
+  }
+};
 
   return (
     <div className="login-page">

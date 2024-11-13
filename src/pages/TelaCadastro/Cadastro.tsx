@@ -3,7 +3,7 @@ import "../TelaLogin/Login.css";
 import { Link } from "react-router-dom";
 
 const Register = () => {
-  const [tipoUsuario, setTipoUsuario] = useState("comum"); // "comum" ou "ies"
+  const [tipoUsuario, setTipoUsuario] = useState(""); // "comum" ou "ies"
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [email, setEmail] = useState("");
@@ -12,7 +12,9 @@ const Register = () => {
   const [cnpj, setCnpj] = useState("");
   const [nomeIes, setNomeIes] = useState("");
 
-  const validarCNPJ = (cnpj) => {
+  type CNPJ = string;
+
+  const validarCNPJ = (cnpj: CNPJ) => {
     cnpj = cnpj.replace(/[^\d]+/g, ""); // Remove caracteres especiais
 
     if (cnpj === "") return false;
@@ -47,7 +49,7 @@ const Register = () => {
     return resultado === parseInt(digitos.charAt(1));
   };
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
   
     if (senha !== confirmarSenha) {
