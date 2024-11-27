@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 import Home from './components/Home/HomePage';
-import MentorPage from './components/AgendarMentor/AgendarMentor';
+import MentorPage from './components/TelaMentoresInicio/Tela-mentoresinicio';
 import AnamnesePage from './components/Anamnese/AnamnesePage';
 import AgendamentoPage from './components/Agendamento/AgendamentoPage';
 import LoginPage from './components/TelaLogin/Login';
@@ -11,11 +11,10 @@ import IESPage from './components/TelaIES/TelaIES';
 import CadastroPage from './components/TelaCadastro/Cadastro';
 import UserPage from './components/TelaUsuario/Usuario';
 import MentorUserPage from './components/TelamentorUser/mentorUser';
-import MentoresPage from './components/Mentores/mentores-v';
+import MentoresPage from './components/TelamentoresUser/Mentores.user';
 
-
-import NotificacaoUser from './pages/Tela-NotificacaoUser/NotificacaoUser';
 import ChangePassword from './pages/EsqueceuSenha/esqSenha';
+import MentorRegisterPage from './components/TelamentorRegister/mentorRegister';
 
 
 
@@ -40,9 +39,9 @@ const App = () => {
         <Route path="/IES" element={<IESPage />} />
 
         <Route path="/usermentor" element={<MentorUserPage />} />
+        <Route path="/registermentor" element={<MentorRegisterPage />} />
     
         <Route path="/user" element={<UserPage />} />
-        <Route path="/notificacao" element={<NotificacaoUser />} />
         <Route path="/mentores" element={<MentoresPage />} />
 
 

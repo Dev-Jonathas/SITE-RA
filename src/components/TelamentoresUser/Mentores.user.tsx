@@ -1,13 +1,13 @@
 import React from 'react';
-import AgendarMentor from '../../pages/AgendarMentor/AgendarMentor';
-import Footer from '../../pages/Footer/Footer';
 import LoggedHeader from '../../pages/LoggedHeader/Header';
+import MentorUser from '../../pages/Tela-mentoresUser/MentoresUser';
+import Footer from '../../pages/Footer/Footer';
 
 const MentoresPage: React.FC = () => {
   return (
-    <div className="mentores-page">
+    <div className="mentor-page">
       <LoggedHeader />
-      <AgendarMentor />
+      <MentorUser />
       <Footer />
     </div>
   );

@@ -5,13 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate(); // For redirecting after login
+  const navigate = useNavigate(); // Para redirecionar após o login
 
-  // Função de login para conectar ao backend
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form submission behavior
-
+    e.preventDefault();
+  
     try {
       const response = await fetch("http://localhost:8080/auth/login", {
         method: "POST",
@@ -19,22 +17,43 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, senha }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+  
+        console.log("Login bem-sucedido:", data);
+  
+        // Salvar o token e o ID do mentorado no localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("mentoradoId", data.id);  // Aqui você salva o ID do mentorado
+        localStorage.setItem('instituicaoId', data.instituicaoId);
+  
+        // Redirecionar com base na role do usuário
+        switch (data.userRole) {
+          case "MENTORADO":
+            navigate("/user"); // Rota para o usuário comum (mentorando)
+            break;
+          case "INSTITUICAO":
+            navigate("/IES"); // Rota para a Instituição
+            break;
+          case "MENTOR":
+            navigate("/usermentor");  // Caso tenha uma rota para mentor
+            break;
+          default:
+            alert("Tipo de usuário desconhecido!");
+            break;
+        }
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || "Erro ao fazer login. Verifique as credenciais.");
       }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Login bem-sucedido:", data);
-      navigate("/user");
-    } else {
-      const text = await response.text();
-      setError(text || "Usuário ou senha incorretos");
+    } catch (error) {
+      console.error("Erro durante o login:", error);
+      alert("Não foi possível realizar o login. Tente novamente mais tarde.");
     }
-  } catch (error) {
-    console.error("Erro durante o login:", error);
-    setError("Ocorreu um erro, por favor, tente novamente.");
-  }
-};
+  };
+  
 
   return (
     <div className="login-page">
@@ -45,9 +64,9 @@ const Login = () => {
           Registra-se
         </Link>
 
-        <form style={{ marginTop: "20px" }}>
+        <form style={{ marginTop: "20px" }} onSubmit={handleLogin}>
           <label>
-            Email:
+            E-mail:
             <input
               type="text"
               placeholder="Email"
@@ -70,7 +89,7 @@ const Login = () => {
           </Link>
           <br />
 
-          <button onClick={handleLogin} className="BLogin">
+          <button type="submit" className="BLogin">
             Fazer Login
           </button>
         </form>

@@ -1,51 +1,75 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './esqueceuSenha.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Para navegação após alterar a senha
+import "./esqueceuSenha.css";
 
 const ChangePassword: React.FC = () => {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Check if passwords match
-    if (newPassword !== confirmPassword) {
-      console.error('As senhas não coincidem.');
+    // Limpar mensagens anteriores
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    // Validação de campos
+    if (!email || !newPassword || !confirmPassword) {
+      setErrorMessage("Todos os campos são obrigatórios.");
       return;
     }
 
-    // Example API call to update password (replace with actual API)
+    if (newPassword !== confirmPassword) {
+      setErrorMessage("As senhas não coincidem. Por favor, tente novamente.");
+      return;
+    }
+
     try {
-      const response = await fetch('/api/change-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: newPassword }),
+      const response = await fetch("http://localhost:8080/auth/EsqueceuSenha", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          senha: newPassword,
+        }),
       });
 
-      // Check if the response is successful
       if (response.ok) {
-        alert('Senha alterada com sucesso!');
-        setNewPassword('');  // Limpar o campo de nova senha
-        setConfirmPassword('');  // Limpar o campo de confirmação
-        navigate('/login'); // Redirecionar para a página de login
+        setSuccessMessage("Senha alterada com sucesso!");
+        setTimeout(() => {
+          navigate("/login", { state: { message: "Senha alterada com sucesso!" } });
+        }, 2000);
+      } else if (response.status === 404) {
+        setErrorMessage("Usuário com este e-mail não foi encontrado.");
       } else {
-        // Em caso de falha na alteração da senha, você pode tratar o erro aqui
-        console.error('Falha ao alterar a senha. Tente novamente.');
-        alert('Erro ao alterar a senha. Tente novamente.');
+        setErrorMessage("Erro ao alterar a senha. Tente novamente.");
       }
     } catch (error) {
-      console.error('Erro de conexão. Tente novamente mais tarde.', error);
-      alert('Erro de conexão. Tente novamente mais tarde.');
+      console.error("Erro:", error);
+      setErrorMessage("Erro de conexão com o servidor. Tente novamente mais tarde.");
     }
   };
 
   return (
-    <div className='e-background'>
+    <div className="e-background">
       <div className="e-container">
         <h2>Alterar Senha</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
         <form onSubmit={handleChangePassword}>
+          <div>
+            <label>E-mail:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
           <div>
             <label>Nova Senha:</label>
             <input

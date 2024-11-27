@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../TelaLogin/Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Importe o useNavigate
 
 const Register = () => {
-  const [tipoUsuario, setTipoUsuario] = useState(""); // "comum" ou "ies"
+  const [tipoUsuario, setTipoUsuario] = useState("comum"); // "comum" ou "ies"
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [email, setEmail] = useState("");
@@ -11,16 +11,13 @@ const Register = () => {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [cnpj, setCnpj] = useState("");
   const [nomeIes, setNomeIes] = useState("");
+  
+  const navigate = useNavigate(); // Defina o useNavigate aqui
 
-  type CNPJ = string;
-
-  const validarCNPJ = (cnpj: CNPJ) => {
+  const validarCNPJ = (cnpj: string) => {
     cnpj = cnpj.replace(/[^\d]+/g, ""); // Remove caracteres especiais
-
     if (cnpj === "") return false;
     if (cnpj.length !== 14) return false;
-
-    // Elimina CNPJs inválidos conhecidos
     if (/^(\d)\1+$/.test(cnpj)) return false;
 
     let tamanho = cnpj.length - 2;
@@ -32,7 +29,6 @@ const Register = () => {
       soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
       if (pos < 2) pos = 9;
     }
-
     let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
     if (resultado !== parseInt(digitos.charAt(0))) return false;
 
@@ -44,45 +40,55 @@ const Register = () => {
       soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
       if (pos < 2) pos = 9;
     }
-
     resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
     return resultado === parseInt(digitos.charAt(1));
   };
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     if (senha !== confirmarSenha) {
       alert("As senhas não coincidem!");
       return;
     }
-  
-    const userData = {
-      tipoUsuario,
-      nome,
-      dataNascimento,
-      email,
-      senha,
-      cnpj,
-      nomeIes,
-    };
-  
+
+    const userData =
+      tipoUsuario === "comum"
+        ? {
+            nome,
+            dataNascimento,
+            email,
+            senha,
+          }
+        : {
+            nomeIes,
+            cnpj,
+            email,
+            senha,
+          };
+
+    const apiRoute =
+      tipoUsuario === "comum"
+        ? "http://localhost:8080/mentorado/cadastro"
+        : "http://localhost:8080/instituicao/cadastro";
+
     try {
-      const response = await fetch('https://localhost:8080/cadastro', {
-        method: 'POST',
+      const response = await fetch(apiRoute, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
       });
-  
+
       if (response.ok) {
         alert("Cadastro realizado com sucesso!");
-        // Redirecionar ou realizar outras ações após o cadastro
+        navigate("/login"); // Redireciona para a página de login
       } else {
         throw new Error("Erro ao cadastrar!");
       }
     } catch (error) {
+      alert("Houve um problema ao realizar o cadastro. Tente novamente.");
     }
   };
 
@@ -96,7 +102,6 @@ const Register = () => {
         </Link>
 
         <form onSubmit={handleRegister} style={{ marginTop: "20px" }}>
-          {/* Seleção do tipo de usuário */}
           <label>
             Tipo de Cadastro:
             <select
@@ -109,7 +114,6 @@ const Register = () => {
             </select>
           </label>
 
-          {/* Campos para Usuário Comum */}
           {tipoUsuario === "comum" && (
             <>
               <label>
@@ -133,7 +137,7 @@ const Register = () => {
               </label>
 
               <label>
-                Email:
+                E-mail:
                 <input
                   type="email"
                   placeholder="Email"
@@ -141,7 +145,7 @@ const Register = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </label>
-
+              
               <label>
                 Senha:
                 <input
@@ -164,7 +168,6 @@ const Register = () => {
             </>
           )}
 
-          {/* Campos para IES */}
           {tipoUsuario === "ies" && (
             <>
               <label>
@@ -186,7 +189,6 @@ const Register = () => {
                   onChange={(e) => setCnpj(e.target.value)}
                   onBlur={() => {
                     if (!validarCNPJ(cnpj)) {
-                      alert("CNPJ inválido");
                       setCnpj("");
                     }
                   }}

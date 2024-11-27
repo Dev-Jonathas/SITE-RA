@@ -1,11 +1,11 @@
 import React from "react";
 
-import MentorUser from "../../pages/Tela-mentorUser/mentorUser"
+import MentorDashboard from "../../pages/Tela-mentorUser/tela-mentorUser";
 
 const MentorUserPage = () => {
     return (
         <div>
-        <MentorUser />
+        <MentorDashboard />
         </div>
     )
 }
