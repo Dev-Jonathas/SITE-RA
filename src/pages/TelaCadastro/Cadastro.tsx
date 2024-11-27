@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../TelaLogin/Login.css";
-import { Link, useNavigate } from "react-router-dom"; // Importe o useNavigate
+import { Link, useNavigate } from "react-router-dom";
+
+interface IES {
+  IesId: number;
+  nome: string;
+  cnpj: string;
+  email: string;
+}
 
 const Register = () => {
-  const [tipoUsuario, setTipoUsuario] = useState("comum"); // "comum" ou "ies"
+  const [tipoUsuario, setTipoUsuario] = useState("comum");
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [email, setEmail] = useState("");
@@ -11,11 +18,22 @@ const Register = () => {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [cnpj, setCnpj] = useState("");
   const [nomeIes, setNomeIes] = useState("");
-  
-  const navigate = useNavigate(); // Defina o useNavigate aqui
+  const [iesList, setIesList] = useState<IES[]>([]);
+  const [selectedIes, setSelectedIes] = useState<number | string>(""); // Alterado para armazenar o ID da IES
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (tipoUsuario === "comum") {
+      // Carregar a lista de IES cadastradas para o tipo de usuário comum
+      fetch("http://localhost:8080/instituicao/listar") // A API que retorna a lista de IES cadastradas
+        .then((response) => response.json())
+        .then((data) => setIesList(data))
+        .catch((error) => console.error("Erro ao carregar IES", error));
+    }
+  }, [tipoUsuario]);
 
   const validarCNPJ = (cnpj: string) => {
-    cnpj = cnpj.replace(/[^\d]+/g, ""); // Remove caracteres especiais
+    cnpj = cnpj.replace(/[^\d]+/g, "");
     if (cnpj === "") return false;
     if (cnpj.length !== 14) return false;
     if (/^(\d)\1+$/.test(cnpj)) return false;
@@ -52,6 +70,7 @@ const Register = () => {
       return;
     }
 
+    // Ajustando o formato do JSON com base no tipo de usuário
     const userData =
       tipoUsuario === "comum"
         ? {
@@ -59,6 +78,7 @@ const Register = () => {
             dataNascimento,
             email,
             senha,
+            instituicaoId: selectedIes, // Agora enviando o ID da IES selecionada
           }
         : {
             nomeIes,
@@ -69,8 +89,8 @@ const Register = () => {
 
     const apiRoute =
       tipoUsuario === "comum"
-        ? "http://localhost:8080/mentorado/cadastro"
-        : "http://localhost:8080/instituicao/cadastro";
+        ? "http://localhost:8080/mentorado/cadastro" // API para cadastro de usuário comum
+        : "http://localhost:8080/instituicao/cadastro"; // API para cadastro de IES
 
     try {
       const response = await fetch(apiRoute, {
@@ -78,12 +98,12 @@ const Register = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(userData), // Enviando os dados ajustados no formato correto
       });
 
       if (response.ok) {
         alert("Cadastro realizado com sucesso!");
-        navigate("/login"); // Redireciona para a página de login
+        navigate("/login");
       } else {
         throw new Error("Erro ao cadastrar!");
       }
@@ -145,7 +165,7 @@ const Register = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </label>
-              
+
               <label>
                 Senha:
                 <input
@@ -164,6 +184,22 @@ const Register = () => {
                   value={confirmarSenha}
                   onChange={(e) => setConfirmarSenha(e.target.value)}
                 />
+              </label>
+
+              <label>
+                Selecione a IES:
+                <select
+                  value={selectedIes}
+                  onChange={(e) => setSelectedIes(e.target.value)}
+                  disabled={!iesList.length}
+                >
+                  <option value="">Selecione uma IES</option>
+                  {iesList.map((ies) => (
+                    <option key={ies.IesId} value={ies.IesId}>
+                      {ies.nome}
+                    </option>
+                  ))}
+                </select>
               </label>
             </>
           )}
