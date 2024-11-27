@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import logomentor from '../../assets/imgs/logomentor.jpg';
 
 const MentorPage: React.FC = () => {
   const [mentores, setMentores] = useState<any[]>([]); // Estado para armazenar a lista de mentores
@@ -53,6 +54,7 @@ const MentorPage: React.FC = () => {
         {Array.isArray(mentores) && mentores.length > 0 ? (
           mentores.map((mentor) => (
             <div key={mentor.id} className="mentor-card">
+              <img src={logomentor} alt="Foto do Mentor" className="mentor-imagem" />
               <div className="mentor-info">
                 <h3>{mentor.nome}</h3>
                 <p>{mentor.bio}</p>

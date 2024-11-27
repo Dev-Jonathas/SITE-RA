@@ -1,52 +1,75 @@
-/* Estilos principais para o container dos mentores */
+
 .mentor-container {
-  padding: 20px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* Permite que o container se ajuste ao conteúdo */
+  min-height: 100vh; /* Garante que o container ocupe pelo menos a altura total da tela */
+  padding-bottom: 20px; /* Adiciona espaçamento inferior para não sobrepor o footer */
 }
 
-/* Estilos para o título */
-h2 {
-  font-size: 24px;
+.mentor-container h2 {
+  color: #000000;
+  font-size: 30px;
   margin-bottom: 20px;
+  font-family: 'Lobster', cursive;
 }
 
-/* Estilos para os cards */
 .mentor-cards {
   display: flex;
-  flex-wrap: wrap; /* Permite que os cards quebrem para a linha seguinte */
-  justify-content: space-between; /* Distribui os cards com espaço entre eles */
-  gap: 20px; /* Espaçamento entre os cards */
-  margin: 0 auto;
-  max-width: 1200px; /* Limita a largura máxima do container */
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap; /* Permite que os cards se ajustem em várias linhas, se necessário */
+  justify-content: space-evenly; /* Ajusta o espaçamento entre os cards */
+  width: 100%;
 }
 
-/* Estilos para cada card de mentor */
 .mentor-card {
-  width: 22%; /* Faz com que 4 cards caibam na linha (100% / 4) */
-  background-color: #f0f0f0; /* Cor de fundo dos cards */
-  padding: 20px;
-  border-radius: 8px; /* Bordas arredondadas */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  text-align: left;
-  transition: transform 0.3s ease; /* Animação suave ao passar o mouse */
+  width: 180px; /* Diminuindo a largura dos cards */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 20px; /* Espaço entre os cards */
 }
 
 .mentor-card:hover {
-  transform: translateY(-10px); /* Efeito de levantar o card ao passar o mouse */
+  z-index: 5;
+  transform: translateY(-5px);
 }
 
-/* Estilos para o nome do mentor */
+.mentor-card img {
+  width: 30%;
+  height: 100px;
+  margin-left: 10px;
+  margin-top: 10px;
+  object-fit: cover;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #ccc;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.mentor-info {
+  padding: 15px;
+}
+
 .mentor-info h3 {
-  font-size: 20px;
   margin-bottom: 10px;
- 
+  font-size: 20px;
 }
 
-/* Estilos para a bio */
 .mentor-info p {
-  font-size: 14px;
-  color: #555;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
 }
+
 
 /* Responsividade para dispositivos menores */
 @media (max-width: 768px) {

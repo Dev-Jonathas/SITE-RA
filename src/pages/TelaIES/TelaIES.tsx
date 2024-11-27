@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './TelaIES.css';
+import instituicaoImagem from '../../assets/imgs/logoies.png';
 import { useNavigate } from 'react-router-dom';
 
 interface Mentoria {
@@ -11,6 +12,7 @@ interface Mentoria {
 
 const InstituicaoPage: React.FC = () => {
   const [mentorias, setMentorias] = useState<Mentoria[]>([]);
+  const [instituicaoNome] = useState('UNINASSAU Graças');
   const [mensagem] = useState('Bem-vindo à nossa plataforma de mentorias!');
   
   // Estado para cadastro do mentor
@@ -105,7 +107,9 @@ const InstituicaoPage: React.FC = () => {
     <div className="instituicao-container">
       <button className="off" onClick={handleLogoff}>Sair</button>
       <header className="instituicao-header">
-        <h1 className="instituicao-mensagem">{mensagem}</h1>
+        <img src={instituicaoImagem} alt="Logo da Instituição" className="instituicao-imagem" />
+        <h1>{instituicaoNome}</h1>
+        <p className="instituicao-mensagem">{mensagem}</p>
       </header>
       
     
@@ -138,6 +142,7 @@ const InstituicaoPage: React.FC = () => {
             value={bioMentor}
             onChange={(e) => setBioMentor(e.target.value)}
             required
+             maxLength={100} // Limit to 100 character
           />
         </div>
         <div>

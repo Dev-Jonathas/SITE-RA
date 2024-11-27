@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Mentoresinicio.css';
+import logomentor from '../../assets/imgs/logomentor.jpg';
 
 interface Mentor {
   id: number;
@@ -11,7 +12,7 @@ const MentorPage: React.FC = () => {
   const [mentores, setMentores] = useState<Mentor[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchMentores = async (nome?: string, email?: string, bio?: string) => {
+  const fetchMentores = async (nome?: string, bio?: string) => {
     try {
       // Monta a URL com os parâmetros de consulta (query string)
       let url = 'http://localhost:8080/mentor/listar?';
@@ -68,6 +69,7 @@ const MentorPage: React.FC = () => {
           mentores.map((mentor) => (
             <div key={mentor.id} className="mentor-card">
               <div className="mentor-info">
+              <img src={logomentor} alt="Foto do Mentor" className="mentor-imagem" />
                 <h3>{mentor.nome}</h3>  
                 <p><strong>Bio:</strong> {mentor.bio}</p>
               </div>
